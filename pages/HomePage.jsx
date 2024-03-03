@@ -10,7 +10,7 @@ function HomePage() {
     // if (!isAuth) {
     //   window.location.href = "/";
     // }
-  }, [isAuth]);
+  }, []);
   return (
     <>
       {isAuth ? (
