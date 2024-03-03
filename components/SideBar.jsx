@@ -14,7 +14,7 @@ function SideBar() {
   const [isAuth, setIsAuth] = useState(false);
   useEffect(() => {
     setIsAuth(JSON.parse(localStorage.getItem("isAuth")));
-  });
+  }, []);
   console.log(isAuth);
   useEffect(() => {
     const Unsubscribe = fetchChats();
