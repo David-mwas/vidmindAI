@@ -3,8 +3,7 @@ import { signInWithPopup, signOut } from "firebase/auth";
 import { useState } from "react";
 import useTypingEffect from "../hooks/useTypingEffect";
 import { FaArrowAltCircleDown, FaGooglePlusG } from "react-icons/fa";
-const Model =
-  "../src/assets/brain-artificial-intelligence-ai-video-generator-removebg-preview.png";
+import Model from "../src/assets/brain-artificial-intelligence-ai-video-generator-removebg-preview.png";
 
 export const Auth = () => {
   console.log(auth?.currentUser?.email);
@@ -19,13 +18,6 @@ export const Auth = () => {
       console.error(err);
     }
   };
-  // const logOut = async () => {
-  //   try {
-  //     await signOut(auth);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
   return (
     <div className="bg-black h-screen flex flex-col items-center justify-center">
       <img
