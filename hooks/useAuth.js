@@ -13,11 +13,8 @@ const useAuthToken = () => {
   };
 
   const clearAuthToken = () => {
-    // Clear the token from the state
-    setAuthToken(null);
-
     // Remove the token from local storage
-    localStorage.removeItem("authToken");
+    localStorage.removeItem("isAuth");
   };
 
   // Return the token and functions to update and clear it

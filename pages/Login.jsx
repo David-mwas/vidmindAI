@@ -8,18 +8,17 @@ import useAuthToken from "../hooks/useAuth";
 export const Auth = () => {
   const { getItem } = useAuthToken();
   const { token } = getItem();
- useEffect(() => {
-   if (token) {
-     window.location.href = "/";
-   }
- }, []);
+  useEffect(() => {
+    if (token) {
+      window.location.href = "/";
+    }
+  }, []);
 
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
       localStorage.setItem("isAuth", JSON.stringify(auth?.currentUser));
       window.location.href = "/";
-      console.log(auth);
     } catch (err) {
       console.error(err);
     }

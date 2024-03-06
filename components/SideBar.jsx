@@ -6,16 +6,13 @@ import ChatRow from "./ChatRow";
 import NewChat from "./NewChat";
 import { FaArrowCircleLeft, FaBars, FaTimes } from "react-icons/fa";
 import { useState } from "react";
-
+import useAuthToken from "../hooks/useAuth";
 function SideBar() {
   const [closed, setClosed] = useState(false);
   const [chats, setChats] = useState();
   const [loading, setLoading] = useState(true);
-  const [isAuth, setIsAuth] = useState(false);
-  useEffect(() => {
-    setIsAuth(JSON.parse(localStorage.getItem("isAuth")));
-  }, []);
-  console.log(isAuth);
+  const { clearAuthToken, getItem } = useAuthToken();
+  const { token } = getItem();
   useEffect(() => {
     const Unsubscribe = fetchChats();
 
@@ -44,7 +41,7 @@ function SideBar() {
   const signOut = async () => {
     try {
       await signOut(auth);
-      localStorage.removeItem("isAuth");
+      clearAuthToken();
       window.location.href = "/login";
     } catch (err) {
       console.error(err);
@@ -87,15 +84,15 @@ function SideBar() {
             ))}
           </div>
         </div>
-        {isAuth && (
+        {token && (
           //https://lh3.googleusercontent.com/a/AGNmyxbQYWTSHXntFKiflGvMlZzlPx0b9jH3A9nob1-ccQ=s96-c
           <div className="flex flex-col space-y-5 pb-10 items-center">
             <img
-              src={isAuth?.photoURL}
-              alt={`${isAuth?.displayName} google pic`}
+              src={token?.photoURL}
+              alt={`${token?.displayName} google pic`}
               className="h-12 w-12 rounded-full cursor-pointer mx-auto mb-2 hover:opacity-50 shadow-lg shadow-black"
             />
-            <p className="text-gray-200 text-sm">{isAuth?.displayName}</p>
+            <p className="text-gray-200 text-sm">{token?.displayName}</p>
             <button
               className="flex gap-1 border border-[#141e30] bg-[#141e30] chatRow p-4 mb-4 hover:opacity-75 px-5"
               onClick={() => signOut()}
