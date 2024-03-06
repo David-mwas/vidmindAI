@@ -1,12 +1,18 @@
 import { auth, googleProvider } from "../firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useTypingEffect from "../hooks/useTypingEffect";
 import { FaArrowAltCircleDown, FaGooglePlusG } from "react-icons/fa";
 import Model from "../src/assets/brain-artificial-intelligence-ai-video-generator-removebg-preview.png";
-
+import useAuthToken from "../hooks/useAuth";
 export const Auth = () => {
-  console.log(auth?.currentUser?.email);
+  const { getItem } = useAuthToken();
+  const { token } = getItem();
+ useEffect(() => {
+   if (token) {
+     window.location.href = "/";
+   }
+ }, []);
 
   const signInWithGoogle = async () => {
     try {

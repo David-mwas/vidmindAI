@@ -2,18 +2,19 @@ import { useState, useEffect } from "react";
 import { BackgroundBeamsDemo } from "../components/BackgroundBeamsDemo";
 import SideBar from "../components/SideBar";
 import { Auth } from "./Login";
-
+import useAuthToken from "../hooks/useAuth";
 function HomePage() {
-  const [isAuth, setIsAuth] = useState(false);
+  const { getItem } = useAuthToken();
+  const { token } = getItem();
   useEffect(() => {
-    setIsAuth(JSON.parse(localStorage.getItem("isAuth")));
-    // if (!isAuth) {
-    //   window.location.href = "/";
-    // }
+    if (!token) {
+      window.location.href = "/login";
+    }
   }, []);
+
   return (
     <>
-      {isAuth ? (
+      {token !== null ? (
         <>
           <div className="text-3xl font-bold bg-black w-full h-full flex flex-col ">
             <div className="flex flex-row">
