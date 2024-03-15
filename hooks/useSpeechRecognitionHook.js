@@ -12,14 +12,14 @@ const useSpeechRecognition = () => {
   useEffect(() => {
     if (!recognition) return;
 
-    const unSunbscribe = (recognition.onresult = (event) => {
+    const unSubscribe = (recognition.onresult = (event) => {
       // console.log(event);
       setText(event?.results[0][0]?.transcript);
       setIsListening(false);
       recognition.stop();
       stopListening();
     });
-    return unSunbscribe;
+    return unSubscribe;
   }, []);
   const startListening = () => {
     setText("");

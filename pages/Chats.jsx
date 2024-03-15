@@ -6,12 +6,12 @@ function Chats() {
  
   // console.log({...chats,title:"hey"});
   return (
-    <div className="flex w-full">
+    <div className="flex w-full bg-[aliceblue]">
       <div className="z-[10000] flex w-full">
         <SideBar />
         <ChatPage />
       </div>
-      <BackgroundBeams />
+      {/* <BackgroundBeams /> */}
     </div>
   );
 }

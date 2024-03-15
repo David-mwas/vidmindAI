@@ -29,7 +29,7 @@ function NewChat() {
   return (
     <div
       onClick={createNewChat}
-      className="flex border border-[#141e30] hover:bg-[#141e30] chatRow p-4 mb-4 text-black hover:text-white"
+      className="flex border-2 border-slate-500 hover:bg-[#141e30] chatRow p-4 mb-4 text- hover:text-white"
     >
       <FaPlus className="h-4 w-4 " />
       <p>New Chat</p>

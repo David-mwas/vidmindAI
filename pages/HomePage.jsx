@@ -16,7 +16,7 @@ function HomePage() {
     <>
       {token !== null ? (
         <>
-          <div className="text-3xl font-bold bg-black w-full h-full flex flex-col ">
+          <div className="text-3xl font-bold bg-[alice-blue] w-full h-full flex flex-col ">
             <div className="flex flex-row">
               <SideBar />
               <BackgroundBeamsDemo />

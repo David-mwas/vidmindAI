@@ -40,22 +40,22 @@ function ChatRow({ id, text }) {
     <a
       href={`/chats/${id}`}
       className={`chatRow justify-center p-2 m-[4px] ${
-        active && "bg-[#141e30] text-white"
+        active && "bg-slate-500 text-white"
       }`}
     >
       <PiChatsDuotone
-        className={`h-5 w-5 text-[#3b4b67] ${active && "text-[#aaa]"}`}
+        className={`h-5 w-5 text-white ${active && "text-[#aaa]"}`}
       />
       <p
-        className={`flex-1 inline-flex truncate text-[#141e30] ${
-          active && "text-[#aaa]"
+        className={`flex-1 inline-flex truncate text-[#eee] ${
+          active && "text-[#eee]"
         }`}
       >
         {textMessage}
       </p>
       <FaTrash
         onClick={removeChat}
-        className={`h-5 w-5 text-gray-800 hover:text-red-700 ${
+        className={`h-5 w-5 text-gray-200 hover:text-red-700 ${
           active && "text-white/60"
         }`}
       />

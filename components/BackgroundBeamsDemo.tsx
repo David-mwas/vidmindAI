@@ -7,7 +7,7 @@ import useTypingEffect from "../hooks/useTypingEffect";
 export function BackgroundBeamsDemo() {
     const title = useTypingEffect("VidMind", 70);
   return (
-    <div className="md:h-[40rem] w-full rounded-md bg-neutral-950 relative flex flex-col items-center justify-center antialiased p-6 md:gap- pt-8">
+    <div className="md:h-[40rem] w-full rounded-md bg-slate-800 relative flex flex-col items-center justify-center antialiased p-6 md:gap- pt-8">
       <h1 className="relative z-10 text-7xl md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-indigo-300 to-[#9ae9e9]  text-center font-sans font-bold mb-2  w-full ">
         {title}
       </h1>
@@ -18,12 +18,12 @@ export function BackgroundBeamsDemo() {
       <div className="flex md:flex-row items-center justify-center  flex-col md:gap-6">
         <div className=" w-full md:w-[45%]  z-20 space-y-4 flex items-center justify-center flex-row">
           <p
-            className="text-neutral-300  text-[20px] relative z-10 text-left md:w-[100%] md:text-[20px]
+            className="text-neutral-300  text-[20px] relative z-10 text-left md:w-[100%] md:text-[22px]
           md:mb-[30px]"
           >
-            Automatically{" "}
-            <span className="text-indigo-300 mx-2">
-              summarize, analyse and automate
+          
+            <span className="text-indigo-300">
+            Summarize and analyse 
             </span>{" "}
             YouTube video content, providing users with{" "}
             <span className="text-[#9ae9e9]"> concise summaries </span>,

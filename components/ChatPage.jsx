@@ -12,15 +12,22 @@ function ChatPage() {
   const [video, setVideo] = useState();
   const [prompt, setPrompt] = useState();
   const [url, setUrl] = useState();
-  var currentData = { messages: [] };
+  var currentData = {
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a helpful youtube transcript assistant. You help people find provide information in youtube video based on the captions.You should not answer any questions apart from this youtube transcription context at any circumstance.",
+      },
+    ],
+  };
   useEffect(() => {
     try {
-     fetchData();
+      fetchData();
     } catch (error) {
       toast.error("Error fetching chat");
       console.error(error);
     }
-    
   }, []);
   useEffect(() => {
     messageEndRef.current?.scrollIntoView();
@@ -102,8 +109,13 @@ function ChatPage() {
       });
       return;
     }
+    let data = messages.map((item) => item);
+    console.log(`prev messages ${data}`);
     setMessages((prev) => [...prev, { content: prompt, role: "user" }]);
-    currentData.messages.push({ content: prompt, role: "user" });
+    currentData.messages.push({
+      role: "user",
+      content: `The following youtube video transcript:\n\n${video?.transcript}\n\nAnswer the following question or questions based on the transcript.Summarise what this video is about, and point on three key learnings.If user insists for questions out of this context, you should just respond with 'I a am just a helpful youtube transcript assistant`,
+    });
     console.log(currentData.messages);
     try {
       const response = await fetch(`http://localhost:5001/videos/${id}`, {
@@ -131,7 +143,7 @@ function ChatPage() {
       messages.forEach((message) => {
         handleSubmitMessages(message);
       });
-      await fetchData();
+      // await fetchData();
     } catch (error) {
       toast.error(error.message, { id: notification });
       console.error("Error:", error.message);
@@ -168,14 +180,14 @@ function ChatPage() {
   return (
     <>
       <Toaster />
-      <div className="flex-1 p: sm:p-6 justify-between flex flex-col h-screen  w-screen pt-4 md:pt-0 overflow-x-hidden">
+      <div className="flex-1 p: sm:p-6 justify-between flex flex-col h-screen  w-screen pt-4 md:pt-0 overflow-x-hidden bg-[#38475d]">
         <div className=" px-4 pt-2 md:pt-0 mb-2 sm:mb-0 w-full">
           <div className="text-2xl mb-2 mt-2 flex items-center w-full">
-            <span className="text-gray-500 mr-3 text-[18px]" id="youtubeLabel">
+            <span className="text-gray-300 mr-3 text-[18px]" id="youtubeLabel">
               Please enter a Youtube URL
             </span>
           </div>
-          <div className="relative flex w-full">
+          <div className="relative flex w-full shadow-black shadow-2xl">
             <input
               // value={url}
               required={true}
@@ -190,7 +202,7 @@ function ChatPage() {
                 onClick={handleSubmitUrl}
                 id="searchYoutubeButton"
                 type="button"
-                className="inline-flex items-center justify-center rounded-lg px-1 text-sm md:px-9 py-3 transition duration-500 ease-in-out text-[#fff] bg-[#9ae9e9] hover:bg-[#9ae9e9aa] focus:outline-none font-semibold"
+                className="inline-flex items-center justify-center rounded-lg px-1 text-sm md:px-9 py-3 transition duration-500 ease-in-out text-[#fff] bg-indigo-400 hover:bg-indigo-500 focus:outline-none font-semibold"
               >
                 <span>Search Yt Video</span>
                 <svg
@@ -204,7 +216,7 @@ function ChatPage() {
               </button>
             </div>
           </div>
-          <div className="flex sm:items-center justify-between py-3 border-b-[.1px] border-indigo-300 w-full">
+          <div className="flex sm:items-center justify-between py-3 border-b-[.1px] border-slate-500 w-full">
             <div className="relative flex items-center space-x-4">
               {/* <img
               src={pic}
@@ -239,19 +251,19 @@ function ChatPage() {
               </div>
               <div className="flex flex-col leading-tight">
                 <div className="text-2xl mt-1 flex items-center">
-                  <span className="text-gray-400 mr-3" id="youtubeTitle">
+                  <span className="text-gray-300 mr-3" id="youtubeTitle">
                     {/* Please enter a Youtube URL */}
                     {video?.title}
                   </span>
                 </div>
                 <span
-                  className="text-lg text-gray-500 mr-3 font-semibold"
+                  className="text-lg text-gray-400 mr-3 font-semibold"
                   id="youtubeAuthor"
                 >
                   {video?.author}
                 </span>
                 <span
-                  className="text-gray-600 truncate w-[20%] sm:w-[35%] md:w-[65%]"
+                  className="text-gray-400 truncate w-[20%] sm:w-[35%] md:w-[65%]"
                   id="youtubeDescription"
                 >
                   {video?.description.split(" ").slice(0, 22).join(" ")}
@@ -297,16 +309,16 @@ function ChatPage() {
             <div ref={messageEndRef} />
           </div>
         ) : (
-          <p className="text-red-500">You got no messages</p>
+          <p className="text-White">You got no messages</p>
         )}
         {/* <!-- hidden --> */}
-        <div className="border-t-[.1px] border-indigo-400 px-4 pt-4 mb-2 sm:mb-0">
-          <div className="relative flex">
+        <div className="border-t-[.1px] border-slate-500 px-4 pt-4 mb-2 sm:mb-0 ">
+          <div className="relative flex shadow-black shadow-2xl">
             <input
               onChange={(e) => setPrompt(e.target.value)}
               id="userSendMessage"
               type="text"
-              placeholder="Write your message!"
+              placeholder="Write your prompt!"
               className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-4 bg-gray-200 rounded-md py-3"
             />
             <div className="absolute right-0 items-center inset-y-0 flex">
@@ -314,7 +326,7 @@ function ChatPage() {
                 onClick={handleSendMessage}
                 id="userSendButton"
                 type="button"
-                className="inline-flex items-center justify-center rounded-lg px-9 py-3 transition duration-500 ease-in-out text-white bg-indigo-400 hover:bg-blue-300 focus:outline-none"
+                className="inline-flex items-center justify-center rounded-lg px-9 py-3 transition duration-500 ease-in-out text-white bg-indigo-500 hover:bg-indigo-400 focus:outline-none"
               >
                 <span>Send</span>
                 <svg

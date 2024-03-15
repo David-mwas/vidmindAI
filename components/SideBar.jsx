@@ -13,6 +13,7 @@ function SideBar() {
   const [loading, setLoading] = useState(true);
   const { clearAuthToken, getItem } = useAuthToken();
   const { token } = getItem();
+  console.log(token)
   useEffect(() => {
     const Unsubscribe = fetchChats();
 
@@ -52,7 +53,7 @@ function SideBar() {
     <div
       className={`fixed transition-all duration-1000 ease-in-out ${
         closed ? "left-0" : "left-[-100%] "
-      }  md:relative z-[9999] md:left-0  bg-indigo-300 min-w-[15rem] md:max-w-[15rem]`}
+      }  md:relative z-[9999] md:left-0  bg-slate-700 min-w-[15rem] md:max-w-[15rem]`}
     >
       <button
         onClick={() => {
@@ -94,7 +95,7 @@ function SideBar() {
             />
             <p className="text-gray-200 text-sm">{token?.displayName}</p>
             <button
-              className="flex gap-1 border border-[#141e30] bg-[#141e30] chatRow p-4 mb-4 hover:opacity-75 px-5"
+              className="flex gap-1 bg-blue-500 chatRow p-4 mb-4 hover:opacity-75 px-5"
               onClick={() => signOut()}
             >
               <FaArrowCircleLeft />
