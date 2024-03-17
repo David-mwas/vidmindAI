@@ -13,7 +13,7 @@ function SideBar() {
   const [loading, setLoading] = useState(true);
   const { clearAuthToken, getItem } = useAuthToken();
   const { token} = getItem();
-  console.log(token.displayName);
+  // console.log(token.displayName);
   useEffect(() => {
     const Unsubscribe = fetchChats();
 
