@@ -7,18 +7,14 @@ import { PiChatsDuotone } from "react-icons/pi";
 
 function ChatRow({ id, text }) {
   const { pathname } = useLocation();
-  // console.log(text.title);
+  console.log(pathname);
   //   const { data: session } = useSession();
   const [active, setActive] = useState(false);
 
-  const textMessage = useTypingEffect(
-    text.title || "New chat",
-    100
-  );
+  const textMessage = useTypingEffect(text.title || "New chat", 100);
   useEffect(() => {
-    if (!pathname) return;
-
     setActive(pathname.includes(id));
+    if (!pathname) return;
   }, [pathname]);
 
   const removeChat = async () => {
@@ -29,37 +25,42 @@ function ChatRow({ id, text }) {
           "Content-Type": "application/json",
         },
       });
-
       window.location.href = "/";
+      // if (response.ok) {
+
+      // }
     } catch (error) {
       console.error("Error:", error.message);
       // Handle error appropriately, e.g., display error message to user
     }
   };
   return (
-    <a
-      href={`/chats/${id}`}
-      className={`chatRow justify-center p-2 m-[4px] ${
-        active && "bg-slate-500 text-white"
-      }`}
-    >
-      <PiChatsDuotone
-        className={`h-5 w-5 text-white ${active && "text-[#aaa]"}`}
-      />
-      <p
-        className={`flex-1 inline-flex truncate text-[#eee] ${
-          active && "text-[#eee]"
+    <div className="flex gap-4 w-full justify-between items-center relative">
+      <a
+        href={`/chats/${id}`}
+        className={`w-[73%] chatRow justify-center p-2 m-[4px] px-4 ${
+          active && "bg-slate-500 text-white"
         }`}
       >
-        {textMessage}
-      </p>
-      <FaTrash
+        <PiChatsDuotone
+          className={`h-5 w-5 text-white ${active && "text-[#aaa]"}`}
+        />
+        <p
+          className={`flex-1 inline-flex truncate text-[#eee] ${
+            active && "text-[#eee]"
+          }`}
+        >
+          {textMessage}
+        </p>
+      </a>
+
+      <div
+        className={`absolute right-0 ${active &&"bg-slate-500"} " w-[20%] chatrow px-5 py-2`}
         onClick={removeChat}
-        className={`h-5 w-5 text-gray-200 hover:text-red-700 ${
-          active && "text-white/60"
-        }`}
-      />
-    </a>
+      >
+        <FaTrash className="text-red-300 cursor-pointer w-5 h-5 hover:text-red-600 " />
+      </div>
+    </div>
   );
 }
 

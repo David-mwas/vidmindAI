@@ -1,14 +1,9 @@
 import { useState } from "react";
 
 const useAuthToken = () => {
-  // Use state to store the authentication token
-  const [authToken, setAuthToken] = useState(null);
-
-  // Use useEffect to persist the token in local storage
-
   const getItem = () => {
-    const token = localStorage.getItem("isAuth");
-
+    const data = JSON.parse(localStorage.getItem("isAuth"));
+    const token = data?.currentUser;
     return { token };
   };
 

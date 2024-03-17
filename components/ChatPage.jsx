@@ -7,17 +7,24 @@ import toast, { Toaster } from "react-hot-toast";
 
 function ChatPage() {
   const messageEndRef = useRef(null);
+  const [userMessage, setUserMessage] = useState();
   const { id } = useParams();
   const [messages, setMessages] = useState([]);
   const [video, setVideo] = useState();
+  const [loading, setLoading] = useState();
   const [prompt, setPrompt] = useState();
   const [url, setUrl] = useState();
+  // console.log(video?.transcript);
   var currentData = {
     messages: [
       {
         role: "system",
         content:
           "You are a helpful youtube transcript assistant. You help people find provide information in youtube video based on the captions.You should not answer any questions apart from this youtube transcription context at any circumstance.",
+      },
+      {
+        role: "user",
+        content: `The following youtube video transcript:\n\n${video?.transcript}\n\nAnswer the following question or questions based on the transcript.Summarise what this video is about, and point on three key learnings`,
       },
     ],
   };
@@ -26,7 +33,7 @@ function ChatPage() {
       fetchData();
     } catch (error) {
       toast.error("Error fetching chat");
-      console.error(error);
+      console.error(`Error chat`,error);
     }
   }, []);
   useEffect(() => {
@@ -36,15 +43,20 @@ function ChatPage() {
     fetch(`http://localhost:5001/chats/${id}/getchatbyid`)
       .then((res) => res.json())
       .then(({ video, message }) => {
-        console.log("from/getchatbyid", video.url, message);
+        // console.log("from/getchatbyid", video?.url, message);
         setVideo(video);
         setMessages(message);
         setUrl(video?.url);
+        
       });
   };
+  // console.log(userMessage?.role, userMessage?.content);
+  let notification;
   const checkYoutubeRegex = (urlAddress) => {
     if (!urlAddress) {
-      toast.error("Please enter a valid YouTube URL");
+      notification = toast.error("Please enter a valid YouTube URL", {
+        id: notification,
+      });
       return;
     }
     const youtubeUrlRegex =
@@ -56,14 +68,16 @@ function ChatPage() {
 
       return url;
     } else {
-      toast.error("Please enter a valid YouTube URL");
+      toast.error("Please enter a valid YouTube URL", {
+        id: notification,
+      });
       return;
     }
   };
   // https://www.youtube.com/watch?v=mr15Xzb1Ook
   const handleSubmitUrl = async () => {
+    notification = toast.loading("Generating video transcript...");
     checkYoutubeRegex(url);
-    // const notification = toast.loading("Vidmind is thinking...");
     try {
       const response = await fetch(`http://localhost:5001/videos/${id}`, {
         method: "POST",
@@ -75,22 +89,21 @@ function ChatPage() {
         }),
       });
 
-      if (!response.ok) {
-        toast.error(response.status);
+      if (response.ok) {
+        toast.success("Vidmind has responded!", { id: notification });
         // throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      toast.success("Vidmind has responded!");
 
       const { messages, video } = await response.json();
       console.log("from videos/id", messages, video);
       setVideo(video);
       setMessages(messages);
       // // console.log(messages[messages.length - 1].content);
-      messages.forEach((message) => {
+      messages?.forEach((message) => {
         handleSubmitMessages(message);
       });
     } catch (error) {
-      toast.error(error.message);
+      // toast.error(error.message);
       console.error("Error:", error.message);
     }
   };
@@ -111,12 +124,13 @@ function ChatPage() {
     }
     let data = messages.map((item) => item);
     console.log(`prev messages ${data}`);
-    setMessages((prev) => [...prev, { content: prompt, role: "user" }]);
+    // setMessages((prev) => [...prev, { content: prompt, role: "user" }]);
+    //  console.log(userMessage?.role, userMessage?.content);
     currentData.messages.push({
+      content: prompt,
       role: "user",
-      content: `The following youtube video transcript:\n\n${video?.transcript}\n\nAnswer the following question or questions based on the transcript.Summarise what this video is about, and point on three key learnings.If user insists for questions out of this context, you should just respond with 'I a am just a helpful youtube transcript assistant`,
     });
-    console.log(currentData.messages);
+    // console.log(currentData);
     try {
       const response = await fetch(`http://localhost:5001/videos/${id}`, {
         method: "POST",
@@ -138,7 +152,7 @@ function ChatPage() {
       const { messages, video } = await response.json();
       console.log("from videos/id", messages, video);
       setVideo(video);
-      setMessages(messages);
+      setMessages((prev)=>[...prev, ...messages]);
       // // console.log(messages[messages.length - 1].content);
       messages.forEach((message) => {
         handleSubmitMessages(message);
@@ -184,17 +198,18 @@ function ChatPage() {
         <div className=" px-4 pt-2 md:pt-0 mb-2 sm:mb-0 w-full">
           <div className="text-2xl mb-2 mt-2 flex items-center w-full">
             <span className="text-gray-300 mr-3 text-[18px]" id="youtubeLabel">
-              Please enter a Youtube URL
+              Please enter a valid Youtube URL
             </span>
           </div>
-          <div className="relative flex w-full shadow-black shadow-2xl">
+          <form className="relative flex w-full shadow-black shadow-2xl">
             <input
               // value={url}
               required={true}
+              disabled={video}
               onChange={(e) => setUrl(e.target.value)}
               id="urlAddress"
               type="text"
-              placeholder="https://youtube.com/?v=123123123"
+              placeholder={video ? url : "https://youtube.com/?v=123123123"}
               className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-4 bg-gray-200 rounded-md py-3"
             />
             <div className="absolute right-0 items-center inset-y-0 flex">
@@ -202,7 +217,12 @@ function ChatPage() {
                 onClick={handleSubmitUrl}
                 id="searchYoutubeButton"
                 type="button"
-                className="inline-flex items-center justify-center rounded-lg px-1 text-sm md:px-9 py-3 transition duration-500 ease-in-out text-[#fff] bg-indigo-400 hover:bg-indigo-500 focus:outline-none font-semibold"
+                disabled={video}
+                className={`inline-flex items-center justify-center rounded-lg px-1 text-sm md:px-9 py-3 transition duration-500 ease-in-out text-[#fff] bg-indigo-400 hover:bg-indigo-500 focus:outline-none font-semibold ${
+                  loading && "cursor-not-allowed"
+                } ${video && "cursor-not-allowed"} ${
+                  !url && "cursor-not-allowed"
+                }`}
               >
                 <span>Search Yt Video</span>
                 <svg
@@ -215,7 +235,7 @@ function ChatPage() {
                 </svg>
               </button>
             </div>
-          </div>
+          </form>
           <div className="flex sm:items-center justify-between py-3 border-b-[.1px] border-slate-500 w-full">
             <div className="relative flex items-center space-x-4">
               {/* <img
@@ -317,16 +337,24 @@ function ChatPage() {
             <input
               onChange={(e) => setPrompt(e.target.value)}
               id="userSendMessage"
+              disabled={!video}
               type="text"
               placeholder="Write your prompt!"
-              className="w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-4 bg-gray-200 rounded-md py-3"
+              className={`w-full focus:outline-none focus:placeholder-gray-400 text-gray-600 placeholder-gray-600 pl-4 bg-gray-200 rounded-md py-3 ${
+                !video && "cursor-not-allowed"
+              }`}
             />
             <div className="absolute right-0 items-center inset-y-0 flex">
               <button
                 onClick={handleSendMessage}
+                disabled={loading}
                 id="userSendButton"
                 type="button"
-                className="inline-flex items-center justify-center rounded-lg px-9 py-3 transition duration-500 ease-in-out text-white bg-indigo-500 hover:bg-indigo-400 focus:outline-none"
+                className={`inline-flex items-center justify-center rounded-lg px-9 py-3 transition duration-500 ease-in-out text-white bg-indigo-500 hover:bg-indigo-400 focus:outline-none ${
+                  loading && "cursor-not-allowed"
+                } ${!video && "cursor-not-allowed"} ${
+                  !prompt && "cursor-not-allowed"
+                }`}
               >
                 <span>Send</span>
                 <svg

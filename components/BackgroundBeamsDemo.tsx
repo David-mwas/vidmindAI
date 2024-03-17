@@ -8,7 +8,7 @@ export function BackgroundBeamsDemo() {
     const title = useTypingEffect("VidMind", 70);
   return (
     <div className="md:h-[40rem] w-full rounded-md bg-slate-800 relative flex flex-col items-center justify-center antialiased p-6 md:gap- pt-8">
-      <h1 className="relative z-10 text-7xl md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-indigo-300 to-[#9ae9e9]  text-center font-sans font-bold mb-2  w-full ">
+      <h1 className="relative z-10 text-4xl md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-indigo-300 to-[#9ae9e9]  text-center font-sans font-bold mb-2  w-full ">
         {title}
       </h1>
       <p className="text-2xl md:font-extrabold lg:leading-[2.9rem] font-bold text-white leading-10 text-center w-full mb-6 md:mb-0">
