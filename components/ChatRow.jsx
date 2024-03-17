@@ -55,10 +55,10 @@ function ChatRow({ id, text }) {
       </a>
 
       <div
-        className={`absolute right-0 ${active &&"bg-slate-500"} " w-[20%] chatrow px-5 py-2`}
+        className={` absolute right-0 " w-[20%] chatrow px-6 py-2`}
         onClick={removeChat}
       >
-        <FaTrash className="text-red-300 cursor-pointer w-5 h-5 hover:text-red-600 " />
+        <FaTrash className="text-red-300 cursor-pointer px-2 w-8 h-5 hover:text-red-600 " />
       </div>
     </div>
   );

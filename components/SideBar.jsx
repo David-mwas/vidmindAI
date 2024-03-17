@@ -59,7 +59,7 @@ function SideBar() {
         onClick={() => {
           setClosed(!closed);
         }}
-        className="md:hidden outline-none shadow-lg text-white hover:opacity-50  top-3 right-4 fixed z-50 transition-all duration-1000 ease-in-out animate-pulse bg-[#141e30]"
+        className="md:hidden outline-none shadow-lg text-white hover:opacity-50  top-4 right-4 fixed z-50 transition-all duration-1000 ease-in-out animate-pulse border-2 border-slate-500 rounded-md px-1 py-1"
       >
         {!closed ? (
           <FaBars className="w-[40px] h-[40px] transition-all duration-1000 ease-in-out" />
