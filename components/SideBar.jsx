@@ -21,12 +21,15 @@ function SideBar() {
   }, []);
   const fetchChats = async () => {
     try {
-      const response = await fetch("http://localhost:5001/chats/getall", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        "https://vidmind-backened.vercel.app/chats/getall",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

@@ -19,12 +19,15 @@ function ChatRow({ id, text }) {
 
   const removeChat = async () => {
     try {
-      const response = await fetch(`http://localhost:5001/chats/delete/${id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `https://vidmind-backened.vercel.app/chats/delete/${id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       window.location.href = "/";
       // if (response.ok) {
 
