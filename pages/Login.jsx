@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import useTypingEffect from "../hooks/useTypingEffect";
 import { FaArrowAltCircleDown, FaGooglePlusG } from "react-icons/fa";
 import Model from "../src/assets/brain-artificial-intelligence-ai-video-generator-removebg-preview.png";
+import GoogleLogo from "../src/assets/google-removebg-preview.png";
 import useAuthToken from "../hooks/useAuth";
 export const Auth = () => {
   const title = useTypingEffect("VidMind", 70);
@@ -66,7 +67,7 @@ export const Auth = () => {
         onClick={() => signInWithGoogle()}
       >
         <span>
-          <FaGooglePlusG className="h-8 w-8 text-white" />
+          <img src={GoogleLogo} alt="" className="w-[70px]"/>
         </span>
         <span>Sign In With Google</span>
       </button>
