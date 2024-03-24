@@ -79,7 +79,7 @@ function SideBar() {
 
             {loading && (
               <div className="animate-pulse text-center text-white">
-                <p>Loading please...</p>
+                <p className="text-[25px]">Loading please...</p>
               </div>
             )}
             {/* map via chat rows*/}

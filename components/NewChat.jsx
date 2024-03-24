@@ -12,7 +12,7 @@ function NewChat() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userId: "65d87db52853191a62afaf43",
+            userId: "65f755b902770abf3a8749cf",
           }),
         }
       );

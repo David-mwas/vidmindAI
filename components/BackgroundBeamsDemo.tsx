@@ -24,12 +24,11 @@ export function BackgroundBeamsDemo() {
           transition={{
             ease: "easeInOut",
             duration: 0.5,
-         
           }}
         >
           <p
-            className="text-neutral-300  text-[21px] relative z-10 text-left md:w-[100%] md:text-[22px]
-          md:mb-[30px]"
+            className="text-neutral-300  text-[22px] relative z-10 text-left md:w-[100%] md:text-[25px]
+          md:mb-[30px] "
           >
             <span className="text-indigo-300">Summarize and analyse</span>{" "}
             YouTube video content, providing users with{" "}
