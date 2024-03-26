@@ -12,7 +12,7 @@ function SideBar() {
   const [chats, setChats] = useState();
   const [loading, setLoading] = useState(true);
   const { clearAuthToken, getItem } = useAuthToken();
-  const { token} = getItem();
+  const { token,userId } = getItem();
   // console.log(token.displayName);
   useEffect(() => {
     const Unsubscribe = fetchChats();
@@ -20,9 +20,10 @@ function SideBar() {
     return () => Unsubscribe;
   }, []);
   const fetchChats = async () => {
+    // const userId = "65d87db52853191a62afaf43";
     try {
       const response = await fetch(
-        "https://vidmind-backened.vercel.app/chats/getall",
+        `https://vidmind-backened.vercel.app/chats/${userId}/getall`,
         {
           method: "GET",
           headers: {

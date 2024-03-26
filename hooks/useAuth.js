@@ -3,8 +3,10 @@ import { useState } from "react";
 const useAuthToken = () => {
   const getItem = () => {
     const data = JSON.parse(localStorage.getItem("isAuth"));
+    const userData = JSON.parse(localStorage.getItem("isVidMindUser"));
     const token = data?.currentUser;
-    return { token };
+    const userId = userData?._id;
+    return { token, userId };
   };
 
   const clearAuthToken = () => {

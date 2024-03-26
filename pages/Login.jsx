@@ -20,7 +20,7 @@ export const Auth = () => {
       await signInWithPopup(auth, googleProvider);
       localStorage.setItem("isAuth", JSON.stringify(auth?.currentUser?.auth));
       createUser();
-      window.location.href = "/";
+      // window.location.href = "/";
     } catch (err) {
       console.error(err);
     }
@@ -44,7 +44,12 @@ export const Auth = () => {
         }
       );
       const data = await response.json();
-      console.log(data);
+      await localStorage.setItem(
+        "isVidMindUser",
+        JSON.stringify(data?.existingUser)
+      );
+      console.log(data?.existingUser);
+      window.location.href = "/";
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +72,7 @@ export const Auth = () => {
         onClick={() => signInWithGoogle()}
       >
         <span>
-          <img src={GoogleLogo} alt="" className="w-[70px]"/>
+          <img src={GoogleLogo} alt="" className="w-[70px]" />
         </span>
         <span>Sign In With Google</span>
       </button>

@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
+import useAuthToken from "../hooks/useAuth";
 
 function NewChat() {
+  const { getItem } = useAuthToken();
+  const { userId } = getItem();
   const createNewChat = async () => {
     try {
       const response = await fetch(
@@ -12,7 +15,7 @@ function NewChat() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userId: "65f755b902770abf3a8749cf",
+            userId: userId,
           }),
         }
       );
