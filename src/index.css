@@ -13,7 +13,7 @@
 
 body {
   font-family: "Nunito", sans-serif;
-  background:  #334155;
+  background: #334155;
   color: white;
   width: 100vw;
   height: 100vh;
@@ -68,4 +68,21 @@ body {
 
 .scrollbar-thumb-rounded::-webkit-scrollbar-thumb {
   border-radius: 0.25rem;
+}
+
+.zoomImage {
+  transition: transform 1s ease-in-out;
+}
+
+.zoomAnimation {
+  animation: zoomInOut 2s infinite alternate;
+}
+
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
 }

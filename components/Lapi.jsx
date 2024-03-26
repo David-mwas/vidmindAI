@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Lapii from "../src/assets/lapi-min.svg";
+// import "../src/styles/lapi.css"; // Import CSS for animations
 
 function Lapi() {
   const [loading, setLoading] = useState(true);
+  const [animationClass, setAnimationClass] = useState("");
+
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-
-    return () => {
-      clearTimeout();
-    };
   }, []);
+
+  useEffect(() => {
+    if (!loading) {
+      // Start animation after loading
+      setAnimationClass("zoomAnimation");
+    }
+  }, [loading]);
+
   return (
     <div>
       {" "}
@@ -33,7 +40,11 @@ function Lapi() {
           <span className="sr-only">Loading...</span>
         </div>
       ) : (
-        <img src={Lapii} alt="lapi" />
+        <img
+          src={Lapii}
+          alt="lapi"
+          className={`zoomImage ${animationClass}`} // Apply animation class
+        />
       )}
     </div>
   );
