@@ -5,7 +5,7 @@ import UserChatitem from "./UserChatitem";
 import SystemChatItem from "./SystemChatItem";
 import toast, { Toaster } from "react-hot-toast";
 
-function  ChatPage() {
+function ChatPage() {
   const messageEndRef = useRef(null);
   const { id } = useParams();
   const [messages, setMessages] = useState([]);
@@ -36,7 +36,9 @@ function  ChatPage() {
     }
   }, []);
   useEffect(() => {
-    messageEndRef.current?.scrollIntoView();
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages]);
   const fetchData = async () => {
     fetch(`https://vidmind-backened.vercel.app/chats/${id}/getchatbyid`)
