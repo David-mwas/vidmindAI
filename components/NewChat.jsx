@@ -8,7 +8,7 @@ function NewChat() {
   const createNewChat = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/chats/create",
+        "https://vidmind-backened.vercel.app/chats/create",
         {
           method: "POST",
           headers: {

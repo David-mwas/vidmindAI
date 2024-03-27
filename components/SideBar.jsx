@@ -23,7 +23,7 @@ function SideBar() {
     // const userId = "65d87db52853191a62afaf43";
     try {
       const response = await fetch(
-        `http://localhost:5000/chats/${userId}/getall`,
+        `https://vidmind-backened.vercel.app/chats/${userId}/getall`,
         {
           method: "GET",
           headers: {
