@@ -39,7 +39,7 @@ function ChatPage() {
     messageEndRef.current?.scrollIntoView();
   }, [messages]);
   const fetchData = async () => {
-    fetch(`https://vidmind-backened.vercel.app/chats/${id}/getchatbyid`)
+    fetch(`http://localhost:5000/chats/${id}/getchatbyid`)
       .then((res) => res.json())
       .then(({ video, message }) => {
         // console.log("from/getchatbyid", video?.url, message);
@@ -80,18 +80,15 @@ function ChatPage() {
     setLoading(true);
     checkYoutubeRegex(url);
     try {
-      const response = await fetch(
-        `https://vidmind-backened.vercel.app/videos/${id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            urlAddress: url,
-          }),
-        }
-      );
+      const response = await fetch(`http://localhost:5000/videos/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          urlAddress: url,
+        }),
+      });
 
       if (response.ok) {
         toast.success("Vidmind has responded!", { id: notification });
@@ -138,19 +135,16 @@ function ChatPage() {
     });
     // console.log(currentData);
     try {
-      const response = await fetch(
-        `https://vidmind-backened.vercel.app/videos/${id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            urlAddress: url,
-            messages: currentData.messages,
-          }),
-        }
-      );
+      const response = await fetch(`http://localhost:5000/videos/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          urlAddress: url,
+          messages: currentData.messages,
+        }),
+      });
 
       if (!response.ok) {
         toast.error(response.status, { id: notification });
@@ -176,7 +170,7 @@ function ChatPage() {
   const handleSubmitMessages = async (message) => {
     try {
       const response = await fetch(
-        `https://vidmind-backened.vercel.app/chats/${id}/messages`,
+        `http://localhost:5000/chats/${id}/messages`,
         {
           method: "POST",
           headers: {
@@ -313,10 +307,10 @@ function ChatPage() {
                     {video?.author}
                   </span>
                   <span
-                    className="text-gray-400 truncate w-[90%] sm:w-[35%] md:w-[65%]"
+                    className="text-gray-400 truncate w-[90%] sm:w-[35%] md:w-[45%] "
                     id="youtubeDescription"
                   >
-                    {video?.description.split(" ").slice(0, 22).join(" ")}
+                    {video?.description.split(" ").slice(0, 12).join(" ")}
                   </span>
                   <p className=" text-indigo-400 hover:text-blue-400 truncate w-[90%] sm:w-[35%] md:w-[65%] mt-2 font-semibold">
                     <a href={url} target="_blank">

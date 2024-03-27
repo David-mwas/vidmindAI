@@ -30,19 +30,16 @@ export const Auth = () => {
     let username = auth?.currentUser?.displayName;
     let role = "user";
     try {
-      const response = await fetch(
-        "https://vidmind-backened.vercel.app/users/create",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            username,
-            role,
-          }),
-        }
-      );
+      const response = await fetch("http://localhost:5000/users/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username,
+          role,
+        }),
+      });
       const data = await response.json();
       await localStorage.setItem(
         "isVidMindUser",
