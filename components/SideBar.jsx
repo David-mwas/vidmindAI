@@ -12,7 +12,9 @@ function SideBar() {
   const [chats, setChats] = useState();
   const [loading, setLoading] = useState(true);
   const { clearAuthToken, getItem } = useAuthToken();
-  const { token,userId } = getItem();
+  const { token, userId } = getItem();
+  console.log(token?.displayName);
+  console.log(userId);
   // console.log(token.displayName);
   useEffect(() => {
     const Unsubscribe = fetchChats();
@@ -23,7 +25,7 @@ function SideBar() {
     // const userId = "65d87db52853191a62afaf43";
     try {
       const response = await fetch(
-        `https://vidmind-backened.vercel.app/chats/${userId}/getall`,
+        `${import.meta.env.VITE_BACKEND_URL}/chats/${userId}/getall`,
         {
           method: "GET",
           headers: {
@@ -52,7 +54,7 @@ function SideBar() {
       console.error(err);
     }
   };
-  // console.log(chats);
+
   return (
     <div
       className={`fixed transition-all duration-1000 ease-in-out ${

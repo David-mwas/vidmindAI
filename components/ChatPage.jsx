@@ -41,7 +41,7 @@ function ChatPage() {
     }
   }, [messages]);
   const fetchData = async () => {
-    fetch(`https://vidmind-backened.vercel.app/chats/${id}/getchatbyid`)
+    fetch(`${import.meta.env.VITE_BACKEND_URL}/chats/${id}/getchatbyid`)
       .then((res) => res.json())
       .then(({ video, message }) => {
         // console.log("from/getchatbyid", video?.url, message);
@@ -83,7 +83,7 @@ function ChatPage() {
     checkYoutubeRegex(url);
     try {
       const response = await fetch(
-        `https://vidmind-backened.vercel.app/videos/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/videos/${id}`,
         {
           method: "POST",
           headers: {
@@ -141,7 +141,7 @@ function ChatPage() {
     // console.log(currentData);
     try {
       const response = await fetch(
-        `https://vidmind-backened.vercel.app/videos/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/videos/${id}`,
         {
           method: "POST",
           headers: {
@@ -178,7 +178,7 @@ function ChatPage() {
   const handleSubmitMessages = async (message) => {
     try {
       const response = await fetch(
-        `https://vidmind-backened.vercel.app/chats/${id}/messages`,
+        `${import.meta.env.VITE_BACKEND_URL}/chats/${id}/messages`,
         {
           method: "POST",
           headers: {

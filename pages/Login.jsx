@@ -31,7 +31,7 @@ export const Auth = () => {
     let role = "user";
     try {
       const response = await fetch(
-        "https://vidmind-backened.vercel.app/users/create",
+        ` ${import.meta.env.VITE_BACKEND_URL}/users/create`,
         {
           method: "POST",
           headers: {
@@ -43,13 +43,17 @@ export const Auth = () => {
           }),
         }
       );
-      const data = await response.json();
-      await localStorage.setItem(
-        "isVidMindUser",
-        JSON.stringify(data?.existingUser)
-      );
-      console.log(data?.existingUser);
-      window.location.href = "/";
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        localStorage.setItem("isVidMindUser", JSON.stringify(data));
+        console.log(data);
+        window.location.href = "/";
+      }
+   
     } catch (error) {
       console.log(error);
     }
