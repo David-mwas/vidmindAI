@@ -44,7 +44,7 @@ function ChatPage() {
     fetch(`${import.meta.env.VITE_BACKEND_URL}/chats/${id}/getchatbyid`)
       .then((res) => res.json())
       .then(({ video, message }) => {
-        // console.log("from/getchatbyid", video?.url, message);
+        console.log("from/getchatbyid", video?.url, message);
         setVideo(video);
         setMessages(message);
         setUrl(video?.url);
@@ -105,8 +105,9 @@ function ChatPage() {
       console.log("from videos/id", messages, video);
       setVideo(video);
       setMessages(messages);
-      // // console.log(messages[messages.length - 1].content);
+      console.log(messages[messages.length - 1].content);
       messages?.forEach((message) => {
+        console.log(`Each message ${message}`)
         handleSubmitMessages(message);
       });
     } catch (error) {
@@ -318,7 +319,7 @@ function ChatPage() {
                     className="text-gray-400 truncate w-[90%] sm:w-[35%] md:w-[45%] "
                     id="youtubeDescription"
                   >
-                    {video?.description.split(" ").slice(0, 12).join(" ")}
+                    {video?.description?.split(" ").slice(0, 12).join(" ")}
                   </span>
                   <p className=" text-indigo-400 hover:text-blue-400 truncate w-[90%] sm:w-[35%] md:w-[65%] mt-2 font-semibold">
                     <a href={url} target="_blank">
@@ -352,7 +353,7 @@ function ChatPage() {
                     id={index}
                   />
                 );
-              } else if (message.role === "assistant") {
+              } else if (message.role === "model") {
                 return (
                   <SystemChatItem
                     avatar={video?.author_thumbnail}
