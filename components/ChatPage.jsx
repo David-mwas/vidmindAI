@@ -160,12 +160,22 @@ function ChatPage() {
         // toast.error(response.status, { id: notification });
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
-
+      console.log("response", response);
       if (response.ok) {
         console.log("response", response);
         toast.success("Vidmind has responded!", { id: notification });
 
         const { messages, video } = await response.json();
+        if (!messages || messages == undefined) {
+          toast.error(
+            "[503 Service Unavailable] The model is overloaded. Please try again later",
+            {
+              id: notification,
+            }
+          );
+          return;
+        }
+
         console.log("from videos/id", messages, video);
         setVideo(video);
         setMessages((prev) => [...prev, ...messages]);
@@ -179,7 +189,8 @@ function ChatPage() {
       toast.error("error", { id: notification });
       console.error("Error:", error.message);
     } finally {
-      toast.dismiss(notification);
+      setPrompt("");
+      // toast.dismiss(notification);
     }
   };
 
