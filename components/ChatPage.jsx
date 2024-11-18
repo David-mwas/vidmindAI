@@ -107,7 +107,7 @@ function ChatPage() {
       setMessages(messages);
       console.log(messages[messages.length - 1].content);
       messages?.forEach((message) => {
-        console.log(`Each message ${message}`)
+        console.log(`Each message ${message}`);
         handleSubmitMessages(message);
       });
     } catch (error) {
@@ -132,14 +132,14 @@ function ChatPage() {
       return;
     }
     let data = messages.map((item) => item);
-    console.log(`prev messages ${data}`);
+    console.dir(`prev messages ${data}`);
     // setMessages((prev) => [...prev, { content: prompt, role: "user" }]);
     //  console.log(userMessage?.role, userMessage?.content);
     currentData.messages.push({
       content: prompt,
       role: "user",
     });
-    // console.log(currentData);
+    console.log("current data line 142 ", currentData);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_BACKEND_URL}/videos/${id}`,
@@ -151,28 +151,35 @@ function ChatPage() {
           body: JSON.stringify({
             urlAddress: url,
             messages: currentData.messages,
+            prompt: prompt,
           }),
         }
       );
 
       if (!response.ok) {
-        toast.error(response.status, { id: notification });
-        // throw new Error(`HTTP error! Status: ${response.status}`);
+        // toast.error(response.status, { id: notification });
+        throw new Error(`HTTP error! Status: ${response.status}`);
       }
-      toast.success("Vidmind has responded!", { id: notification });
 
-      const { messages, video } = await response.json();
-      console.log("from videos/id", messages, video);
-      setVideo(video);
-      setMessages((prev) => [...prev, ...messages]);
-      // // console.log(messages[messages.length - 1].content);
-      messages.forEach((message) => {
-        handleSubmitMessages(message);
-      });
+      if (response.ok) {
+        console.log("response", response);
+        toast.success("Vidmind has responded!", { id: notification });
+
+        const { messages, video } = await response.json();
+        console.log("from videos/id", messages, video);
+        setVideo(video);
+        setMessages((prev) => [...prev, ...messages]);
+        // // console.log(messages[messages.length - 1].content);
+        messages?.forEach((message) => {
+          handleSubmitMessages(message);
+        });
+      }
       // await fetchData();
     } catch (error) {
-      toast.error(error.message, { id: notification });
+      // toast.error(error.message, { id: notification });
       console.error("Error:", error.message);
+    } finally {
+      toast.dismiss(notification);
     }
   };
 
