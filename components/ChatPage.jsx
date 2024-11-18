@@ -11,7 +11,7 @@ function ChatPage() {
   const [messages, setMessages] = useState([]);
   const [video, setVideo] = useState();
   const [loading, setLoading] = useState(false);
-  const [prompt, setPrompt] = useState();
+  const [prompt, setPrompt] = useState("");
   const [url, setUrl] = useState();
   // console.log(video?.transcript);
   var currentData = {
@@ -157,16 +157,19 @@ function ChatPage() {
       );
 
       if (!response.ok) {
+        setPrompt("");
         // toast.error(response.status, { id: notification });
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       console.log("response", response);
       if (response.ok) {
+        setPrompt("");
         console.log("response", response);
         toast.success("Vidmind has responded!", { id: notification });
 
         const { messages, video } = await response.json();
         if (!messages || messages == undefined) {
+          setPrompt("");
           toast.error(
             "[503 Service Unavailable] The model is overloaded. Please try again later",
             {
@@ -175,7 +178,7 @@ function ChatPage() {
           );
           return;
         }
-
+        setPrompt("");
         console.log("from videos/id", messages, video);
         setVideo(video);
         setMessages((prev) => [...prev, ...messages]);
@@ -186,6 +189,7 @@ function ChatPage() {
       }
       // await fetchData();
     } catch (error) {
+      setPrompt("");
       toast.error("error", { id: notification });
       console.error("Error:", error.message);
     } finally {
