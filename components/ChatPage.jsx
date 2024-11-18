@@ -176,7 +176,7 @@ function ChatPage() {
       }
       // await fetchData();
     } catch (error) {
-      // toast.error(error.message, { id: notification });
+      toast.error("error", { id: notification });
       console.error("Error:", error.message);
     } finally {
       toast.dismiss(notification);
