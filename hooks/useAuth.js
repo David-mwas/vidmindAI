@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 
 const useAuthToken = () => {
   const getItem = () => {
@@ -6,7 +6,7 @@ const useAuthToken = () => {
     const userData = JSON.parse(localStorage.getItem("isVidMindUser"));
     const token = data?.currentUser;
     const userId = userData;
-    console.log("hook call ..." + userId);
+    // console.log("hook call ..." + userId);
     return { token, userId };
   };
 

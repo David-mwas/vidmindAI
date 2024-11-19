@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Lapii from "../src/assets/lapi-min.svg";
+import Lapii from "../src/assets/lapi-min.webp";
 // import "../src/styles/lapi.css"; // Import CSS for animations
 
 function Lapi() {

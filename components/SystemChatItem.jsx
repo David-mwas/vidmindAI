@@ -1,4 +1,6 @@
 import React from "react";
+
+import Markdown from "react-markdown";
 function SystemChatItem({ avatar, content }) {
   return (
     <div
@@ -8,15 +10,15 @@ function SystemChatItem({ avatar, content }) {
       <div className="flex items-end">
         <div className="flex flex-col space-y-2 	mx-2 order-2 items-start">
           <div>
-            <span className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
+            <Markdown className="px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600">
               {content}
-            </span>
+            </Markdown>
           </div>
         </div>
         <img
           src={avatar}
           alt="My profile"
-          className="w-12 h-12 rounded-full order-1"
+          className="w-8 h-8 rounded-full order-1 md:w-12 md:h-12"
         />
       </div>
     </div>

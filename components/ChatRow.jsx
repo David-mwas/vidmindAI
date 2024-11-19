@@ -1,5 +1,5 @@
 import useTypingEffect from "../hooks/useTypingEffect";
-// import { ChatBubbleLeftIcon, TrashIcon } from "@heroicons/react/24/outline";
+import Markdown from "react-markdown";
 import { useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { FaSnapchat, FaTrash } from "react-icons/fa";
@@ -48,13 +48,13 @@ function ChatRow({ id, text }) {
         <PiChatsDuotone
           className={`h-5 w-5 text-white ${active && "text-[#aaa]"}`}
         />
-        <p
+        <Markdown
           className={`flex-1 inline-flex truncate text-[#eee] ${
             active && "text-[#eee]"
           }`}
         >
           {textMessage}
-        </p>
+        </Markdown>
       </a>
 
       <div

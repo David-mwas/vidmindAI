@@ -82,13 +82,17 @@ function SideBar() {
 
             {loading && (
               <div className="animate-pulse text-center text-white">
-                <p className="text-[25px]">Loading please...</p>
+                <p className="text-[18px]">Loading chats...</p>
               </div>
             )}
             {/* map via chat rows*/}
-            {chats?.map((chat) => (
-              <ChatRow key={chat._id} id={chat._id} text={chat} />
-            ))}
+            {chats?.length < 1 && !loading ? (
+              <p>No chats , create one </p>
+            ) : (
+              chats?.map((chat) => (
+                <ChatRow key={chat._id} id={chat._id} text={chat} />
+              ))
+            )}
           </div>
         </div>
         {token && (

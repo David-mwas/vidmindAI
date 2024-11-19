@@ -1,6 +1,6 @@
 import { auth, googleProvider } from "../firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect } from "react";
 import useTypingEffect from "../hooks/useTypingEffect";
 import { FaArrowAltCircleDown, FaGooglePlusG } from "react-icons/fa";
 import Model from "../src/assets/brain-artificial-intelligence-ai-video-generator-removebg-preview.png";
@@ -10,11 +10,11 @@ export const Auth = () => {
   const title = useTypingEffect("VidMind", 70);
   const { getItem } = useAuthToken();
   const { token } = getItem();
-  useEffect(() => {
-    if (token) {
-      window.location.href = "/";
-    }
-  }, []);
+
+  if (token) {
+    return (window.location.href = "/");
+  }
+
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
@@ -53,7 +53,6 @@ export const Auth = () => {
         console.log(data);
         window.location.href = "/";
       }
-   
     } catch (error) {
       console.log(error);
     }
