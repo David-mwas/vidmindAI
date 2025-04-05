@@ -398,6 +398,8 @@ function ChatPage() {
             <input
               onChange={(e) => setPrompt(e.target.value)}
               id="userSendMessage"
+              name="userSendMessage"
+              value={prompt}
               disabled={!video}
               type="text"
               placeholder="Write your prompt!"
