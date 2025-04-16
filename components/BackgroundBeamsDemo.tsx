@@ -6,7 +6,7 @@ import { GoArrowRight } from "react-icons/go";
 import { motion } from "framer-motion";
 import useTypingEffect from "../hooks/useTypingEffect";
 export function BackgroundBeamsDemo() {
-  const title = useTypingEffect("VidMind", 70);
+  const title = useTypingEffect("Tutorial converter", 70);
   return (
     <div className="md:h-[40rem] w-full rounded-md bg-slate-800 relative flex flex-col items-center justify-center antialiased p-6 md:gap- pt-8">
       <h1 className="relative z-10 text-5xl  bg-clip-text text-transparent bg-gradient-to-b from-indigo-300 to-[#9ae9e9]  md:text-center font-sans font-bold mb-2  w-full text-left">

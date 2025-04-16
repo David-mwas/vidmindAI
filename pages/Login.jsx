@@ -7,7 +7,7 @@ import Model from "../src/assets/brain-artificial-intelligence-ai-video-generato
 import GoogleLogo from "../src/assets/google-removebg-preview.png";
 import useAuthToken from "../hooks/useAuth";
 export const Auth = () => {
-  const title = useTypingEffect("VidMind", 70);
+  const title = useTypingEffect("Tutorial converter", 70);
   const { getItem } = useAuthToken();
   const { token } = getItem();
 
@@ -67,7 +67,10 @@ export const Auth = () => {
         className="animate-pulse rounded-full z-20"
       />
       <p className="text-white mb-3 uppercase mt-6 text-center">
-        {useTypingEffect("Wanna join the fun, sign in to vidMind first!!", 2)}{" "}
+        {useTypingEffect(
+          "Wanna join the fun, sign in to Tutorial converter first!!",
+          2
+        )}{" "}
       </p>
       <FaArrowAltCircleDown className="h-7 w-7 mx-auto mt-2 text-white animate-bounce" />
       <button

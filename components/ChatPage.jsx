@@ -96,7 +96,7 @@ function ChatPage() {
       );
 
       if (response.ok) {
-        toast.success("Vidmind has responded!", { id: notification });
+        toast.success("Tutorial converter has responded!", { id: notification });
         setLoading(false);
         // throw new Error(`HTTP error! Status: ${response.status}`);
       }
@@ -118,7 +118,7 @@ function ChatPage() {
   };
 
   const handleSendMessage = async () => {
-    const notification = toast.loading("Vidmind is thinking...");
+    const notification = toast.loading("Tutorial converter is thinking...");
     if (!prompt) {
       toast.error("prompt cannot be empty", {
         id: notification,
@@ -165,7 +165,7 @@ function ChatPage() {
       if (response.ok) {
         setPrompt("");
         console.log("response", response);
-        toast.success("Vidmind has responded!", { id: notification });
+        toast.success("Tutorial converter has responded!", { id: notification });
 
         const { messages, video } = await response.json();
         if (!messages || messages == undefined) {

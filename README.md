@@ -1,8 +1,8 @@
-# VIDMIND
+# Tutorial converter
 
 ## Your video AI companion
 
-VIDMIND is a system designed to automatically summarize, analyze, and extract key information from YouTube video content. By leveraging text embeddings and natural language processing techniques, VIDMIND aims to provide users with concise summaries and key insights, reducing the need for manual video viewing and note-taking.
+Tutorial converter is a system designed to automatically summarize, analyze, and extract key information from YouTube video content. By leveraging text embeddings and natural language processing techniques, Tutorial converter aims to provide users with concise summaries and key insights, reducing the need for manual video viewing and note-taking.
 
 ![/src/assets/image.png](src/assets/image.png)
 
@@ -21,15 +21,15 @@ VIDMIND is a system designed to automatically summarize, analyze, and extract ke
 
 ## Introduction
 
-VIDMIND is developed to address the challenge of information overload in video content, particularly on platforms like YouTube. By automating video comprehension and summarization, VIDMIND aims to enhance efficiency and productivity for users seeking to extract key information quickly from videos.
+Tutorial converter is developed to address the challenge of information overload in video content, particularly on platforms like YouTube. By automating video comprehension and summarization, Tutorial converter aims to enhance efficiency and productivity for users seeking to extract key information quickly from videos.
 
 ## Problem Statement
 
-The abundance of video content on platforms like YouTube makes it difficult for users to efficiently extract key information and insights. Manual video viewing and processing are time-consuming and often inefficient. VIDMIND addresses this challenge by automating video summarization and analysis.
+The abundance of video content on platforms like YouTube makes it difficult for users to efficiently extract key information and insights. Manual video viewing and processing are time-consuming and often inefficient. Tutorial converter addresses this challenge by automating video summarization and analysis.
 
 ## Solution Overview
 
-VIDMIND extracts video transcripts using YouTube's API, generates text embeddings using OpenAI API or Gemini API, stores these embeddings in a vector database (such as Astra DB), and applies natural language processing techniques to generate concise summaries. The system then presents these summaries and key insights to users through an intuitive interface.
+Tutorial converter extracts video transcripts using YouTube's API, generates text embeddings using OpenAI API or Gemini API, stores these embeddings in a vector database (such as Astra DB), and applies natural language processing techniques to generate concise summaries. The system then presents these summaries and key insights to users through an intuitive interface.
 
 ## Aims and Objectives
 
@@ -46,7 +46,7 @@ To automate the understanding of YouTube video content, providing users with con
 
 ## Methodology
 
-VIDMIND employs a prototyping approach, iteratively refining the system based on user feedback to ensure that the final product aligns with user needs and expectations.
+Tutorial converter employs a prototyping approach, iteratively refining the system based on user feedback to ensure that the final product aligns with user needs and expectations.
 
 ## System Requirements
 
